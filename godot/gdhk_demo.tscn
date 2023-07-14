@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://dtcp4scek0ghr"]
+
+[ext_resource type="Script" path="res://gdhk/net/gdhk_server.gd" id="1_cy0ea"]
+[ext_resource type="Script" path="res://free_look_camera.gd" id="2_ngj78"]
+[ext_resource type="Script" path="res://gdhk/accessory/gdhk_lightbulb.gd" id="2_s5fje"]
+[ext_resource type="Script" path="res://gdhk/accessory/gdhk_door.gd" id="4_oxcjk"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="gdhk_server" type="Node" parent="."]
+script = ExtResource("1_cy0ea")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+size = Vector3(13.7966, 0.278751, 15.6178)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.996695, 2.64538)
+script = ExtResource("2_ngj78")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.589239, 0.462814, -0.66227, 0, 0.819682, 0.572818, 0.807959, -0.337527, 0.482989, 0, 1.54474, 0)
+
+[node name="light_001" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.817028, 1, 0.208519)
+script = ExtResource("2_s5fje")
+max_brightness = 2.697
+
+[node name="Camera3D2" type="Camera3D" parent="."]
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0104, 0.641693, 0)
+size = Vector3(1.89862, 1, 0.121273)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.54591, 0.641693, 0)
+size = Vector3(1.89862, 1, 0.121273)
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0625041, 0, 0)
+script = ExtResource("4_oxcjk")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.33, 0.642, 0)
+size = Vector3(0.664833, 1, 0.121273)

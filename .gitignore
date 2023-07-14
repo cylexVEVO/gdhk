@@ -1,0 +1,4 @@
+node/dist
+node/node_modules
+node/persist
+godot/.godot

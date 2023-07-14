@@ -1,0 +1,14 @@
+{
+    "accessories": [
+        {
+            "type": "lightbulb",
+            "name": "gdhk Light 1",
+            "nodePath": "/root/Node3D/light_001"
+        },
+        {
+            "type": "door",
+            "name": "gdhk Door 1",
+            "nodePath": "/root/Node3D/Node3D"
+        }
+    ]
+}
