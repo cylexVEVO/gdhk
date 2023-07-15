@@ -22,7 +22,7 @@ export async function updateAccessory(nodePath: string, uFunction: string, usePa
         body: JSON.stringify({
             intent: "update",
             node_path: nodePath,
-            function: "set_target_position",
+            function: uFunction,
             use_params: useParams,
             params
         })
