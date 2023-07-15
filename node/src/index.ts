@@ -4,11 +4,12 @@ import { z } from "zod";
 import { build as buildLightbulb } from "./accessories/lightbulb";
 import { build as buildDoor } from "./accessories/door";
 import { Accessory } from "hap-nodejs";
+import { build as buildWindow } from "./accessories/window";
 
 const schema = z.object({
     accessories: z.array(
         z.object({
-            type: z.enum(["lightbulb", "door"]),
+            type: z.enum(["lightbulb", "door", "window"]),
             name: z.string().nonempty(),
             nodePath: z.string().nonempty()
         })
@@ -36,6 +37,9 @@ export async function readAccessories() {
                 break;
             case "door":
                 accessories.push(buildDoor(accessory.name, accessory.nodePath));
+                break;
+            case "window":
+                accessories.push(buildWindow(accessory.name, accessory.nodePath));
                 break;
         }
     });

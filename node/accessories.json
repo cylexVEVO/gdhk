@@ -9,6 +9,16 @@
             "type": "door",
             "name": "gdhk Door 1",
             "nodePath": "/root/Node3D/Node3D"
+        },
+        {
+            "type": "window",
+            "name": "gdhk Window 1",
+            "nodePath": "/root/Node3D/Node3D2"
+        },
+        {
+            "type": "window",
+            "name": "gdhk Window 2",
+            "nodePath": "/root/Node3D/Node3D4/Node3D3"
         }
     ]
 }

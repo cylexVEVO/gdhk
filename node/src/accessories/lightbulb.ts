@@ -1,4 +1,5 @@
-import { Accessory, Characteristic, CharacteristicEventTypes, CharacteristicGetCallback, CharacteristicSetCallback, CharacteristicValue, Service, uuid } from "hap-nodejs";
+import { Accessory, Characteristic, CharacteristicEventTypes, CharacteristicGetCallback, CharacteristicSetCallback, CharacteristicValue, HAPStatus, Service, uuid } from "hap-nodejs";
+import { queryAccessory, updateAccessory } from "../util";
 
 export function build(name: string, nodePath: string) {
     const lightbulb = new Accessory(name, uuid.generate(nodePath));
@@ -8,71 +9,45 @@ export function build(name: string, nodePath: string) {
     const on = service.getCharacteristic(Characteristic.On);
 
     on.on(CharacteristicEventTypes.GET, async (callback: CharacteristicGetCallback) => {
-        const res = await fetch("http://localhost:8080/", {
-            method: "POST",
-            headers: {
-                "content-type": "application/json"
-            },
-            body: JSON.stringify({
-                intent: "query",
-                node_path: nodePath,
-                property: "state"
-            })
-        });
-        const state = await res.json();
-        callback(undefined, state);
+        try {
+            const state = await queryAccessory(nodePath, "state");
+            callback(undefined, state);
+        } catch (e) {
+            console.error(e);
+            callback(HAPStatus.OPERATION_TIMED_OUT);
+        }
     });
 
     on.on(CharacteristicEventTypes.SET, async (value: CharacteristicValue, callback: CharacteristicSetCallback) => {
-        await fetch("http://localhost:8080/", {
-            method: "POST",
-            headers: {
-                "content-type": "application/json"
-            },
-            body: JSON.stringify({
-                intent: "update",
-                node_path: nodePath,
-                function: "set_state",
-                use_params: true,
-                params: value
-            })
-        });
-        callback();
+        try {
+            await updateAccessory(nodePath, "set_state", true, value);
+            callback();
+        } catch (e) {
+            console.error(e);
+            callback(HAPStatus.OPERATION_TIMED_OUT);
+        }
     });
 
     const brightness = service.getCharacteristic(Characteristic.Brightness);
 
     brightness.on(CharacteristicEventTypes.GET, async (callback: CharacteristicGetCallback) => {
-        const res = await fetch("http://localhost:8080/", {
-            method: "POST",
-            headers: {
-                "content-type": "application/json"
-            },
-            body: JSON.stringify({
-                intent: "query",
-                node_path: nodePath,
-                property: "brightness"
-            })
-        });
-        const state = await res.json();
-        callback(undefined, state);
+        try {
+            const state = await queryAccessory(nodePath, "brightness");
+            callback(undefined, state);
+        } catch (e) {
+            console.error(e);
+            callback(HAPStatus.OPERATION_TIMED_OUT);
+        }
     });
 
     brightness.on(CharacteristicEventTypes.SET, async (value: CharacteristicValue, callback: CharacteristicSetCallback) => {
-        await fetch("http://localhost:8080/", {
-            method: "POST",
-            headers: {
-                "content-type": "application/json"
-            },
-            body: JSON.stringify({
-                intent: "update",
-                node_path: nodePath,
-                function: "set_brightness",
-                use_params: true,
-                params: value
-            })
-        });
-        callback();
+        try {
+            await updateAccessory(nodePath, "set_brightness", true, value);
+            callback();
+        } catch (e) {
+            console.error(e);
+            callback(HAPStatus.OPERATION_TIMED_OUT);
+        }
     });
 
     lightbulb.addService(service);

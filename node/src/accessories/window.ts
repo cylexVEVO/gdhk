@@ -1,10 +1,10 @@
-import { Accessory, Characteristic, CharacteristicEventTypes, CharacteristicGetCallback, CharacteristicSetCallback, CharacteristicValue, HAPStatus, Service, uuid } from "hap-nodejs";
+import { Accessory, Characteristic, CharacteristicEventTypes, CharacteristicGetCallback, CharacteristicSetCallback, CharacteristicValue, HAPStatus, HapStatusError, Service, uuid } from "hap-nodejs";
 import { queryAccessory, updateAccessory } from "../util";
 
 export function build(name: string, nodePath: string) {
-    const door = new Accessory(name, uuid.generate(nodePath));
+    const window = new Accessory(name, uuid.generate(nodePath));
 
-    const service = new Service.Door(name);
+    const service = new Service.Window(name);
 
     const current = service.getCharacteristic(Characteristic.CurrentPosition);
 
@@ -55,7 +55,7 @@ export function build(name: string, nodePath: string) {
         }
     });
 
-    door.addService(service);
+    window.addService(service);
 
-    return door;
+    return window;
 }
